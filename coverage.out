@@ -1,14 +1,15 @@
 mode: set
-github.com/konapun/statekit/examples/main.go:12.34,14.2 1 0
-github.com/konapun/statekit/examples/main.go:16.55,19.2 1 0
-github.com/konapun/statekit/examples/main.go:21.40,25.2 1 0
-github.com/konapun/statekit/examples/main.go:27.13,34.16 4 0
-github.com/konapun/statekit/examples/main.go:34.16,37.3 2 0
-github.com/konapun/statekit/examples/main.go:40.2,44.49 3 0
-github.com/konapun/statekit/examples/main.go:44.49,47.3 2 0
-github.com/konapun/statekit/examples/main.go:48.2,48.16 1 0
-github.com/konapun/statekit/examples/main.go:48.16,51.3 2 0
-github.com/konapun/statekit/examples/main.go:54.2,55.52 2 0
+github.com/konapun/statekit/examples/main.go:13.34,15.2 1 0
+github.com/konapun/statekit/examples/main.go:17.40,21.2 1 0
+github.com/konapun/statekit/examples/main.go:23.13,30.16 4 0
+github.com/konapun/statekit/examples/main.go:30.16,33.3 2 0
+github.com/konapun/statekit/examples/main.go:36.2,36.76 1 0
+github.com/konapun/statekit/examples/main.go:36.76,38.3 1 0
+github.com/konapun/statekit/examples/main.go:39.2,46.49 4 0
+github.com/konapun/statekit/examples/main.go:46.49,49.3 2 0
+github.com/konapun/statekit/examples/main.go:50.2,50.16 1 0
+github.com/konapun/statekit/examples/main.go:50.16,53.3 2 0
+github.com/konapun/statekit/examples/main.go:56.2,57.52 2 0
 github.com/konapun/statekit/state/accessor.go:10.52,15.2 1 1
 github.com/konapun/statekit/state/accessor.go:18.62,20.2 1 1
 github.com/konapun/statekit/state/accessor.go:23.33,25.2 1 0

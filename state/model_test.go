@@ -1,9 +1,5 @@
 package state_test
 
-import (
-	. "github.com/konapun/statekit/state"
-)
-
 type TestModel struct {
 	key    string
 	String string
@@ -18,11 +14,6 @@ func NewTestModel(key string) *TestModel {
 
 func (t *TestModel) Key() string {
 	return t.key
-}
-
-func (t *TestModel) Diff(other *TestModel) Diff {
-	// TODO: Implement the actual diff logic here
-	return Diff{}
 }
 
 func (t *TestModel) Clone() *TestModel {

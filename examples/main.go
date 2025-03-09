@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/konapun/statekit/state"
 )
 
@@ -11,11 +12,6 @@ type TestModel struct {
 
 func (t *TestModel) Key() string {
 	return t.key
-}
-
-func (t *TestModel) Diff(other *TestModel) state.Diff {
-	// Implement the actual diff logic here
-	return state.Diff{}
 }
 
 func (t *TestModel) Clone() *TestModel {
@@ -35,6 +31,12 @@ func main() {
 		fmt.Printf("Error: %v\n", err)
 		return
 	}
+
+	// Register an observer
+	observer := state.NewRuntimeObserver(func(new *TestModel, old *TestModel) {
+		fmt.Printf("Observer called: %s -> %s\n", old.Key(), new.Key())
+	})
+	accessor.RegisterObserver(observer)
 
 	// Query the model
 	model := accessor.Query()
