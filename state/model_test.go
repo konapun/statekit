@@ -1,5 +1,7 @@
 package state_test
 
+import "github.com/konapun/statekit/state"
+
 type TestModel struct {
 	key    string
 	String string
@@ -16,7 +18,7 @@ func (t *TestModel) Key() string {
 	return t.key
 }
 
-func (t *TestModel) Clone() *TestModel {
+func (t *TestModel) Clone() state.Model {
 	return &TestModel{
 		key:    t.key,
 		String: t.String,
