@@ -1,26 +1,40 @@
 package state
 
 // State is a struct that represents the state of the application.
-type State[T Model[T]] struct {
-	items map[string]T
+type State struct {
+	items map[string]Model
 }
 
 // NewState creates a new State with the provided items.
-func NewState[T Model[T]](items ...T) *State[T] {
-	mappedItems := make(map[string]T)
+func NewState(items ...Model) *State {
+	mappedItems := make(map[string]Model)
 	for _, item := range items {
 		mappedItems[item.Key()] = item
 	}
-	return &State[T]{
+	return &State{
 		items: mappedItems,
 	}
 }
 
 // Get returns the item with the provided key.
-func (s *State[T]) Get(key string) (T, error) {
+func (s *State) Get(key string) (Model, error) {
 	if item, ok := s.items[key]; ok {
 		return item, nil
 	}
-	var zero T
-	return zero, ErrStateItemNotFound
+	return nil, ErrStateItemNotFound
+}
+
+func AccessorFor[T Model](state *State, key string) (*Accessor[T], error) {
+	item, err := state.Get(key)
+	if err != nil {
+		return nil, err
+	}
+
+	typedItem, ok := item.(T)
+	if !ok {
+		return nil, ErrTypeAssertion
+	}
+
+	accessor := NewAccessor(typedItem)
+	return accessor, nil
 }

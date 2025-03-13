@@ -6,41 +6,44 @@ import (
 	"github.com/konapun/statekit/state"
 )
 
-type TestModel struct {
-	key  string
+type NamedModel struct {
 	Name string
 }
 
-func (t *TestModel) Key() string {
-	return t.key
+func (n *NamedModel) Key() string {
+	return "named"
 }
 
-func (t *TestModel) Clone() *TestModel {
-	return &TestModel{
-		key:  t.key,
-		Name: t.Name,
-	}
+func (n *NamedModel) Clone() state.Model {
+	return &NamedModel{n.Name}
 }
 
-func (t *TestModel) ToString() string {
-	return fmt.Sprintf("Name: %s", t.Name)
+type AgedModel struct {
+	Age int
+}
+
+func (a *AgedModel) Key() string {
+	return "aged"
+}
+
+func (a *AgedModel) Clone() state.Model {
+	return &AgedModel{a.Age}
 }
 
 func main() {
 	// Create a new state with a TestModel
-	testState := state.NewState(&TestModel{key: "test", Name: "name"})
-	manager := state.NewManager(testState)
+	testState := state.NewState(&NamedModel{Name: "name"}, &AgedModel{Age: 10})
 
-	// Access the TestModel through the manager
-	accessor, err := manager.AccessorFor("test")
+	// Access the TestModel through the ma<ager
+	accessor, err := state.AccessorFor[*NamedModel](testState, "named")
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		return
 	}
 
 	// Register an observer
-	observer := state.NewRuntimeObserver(func(new *TestModel, old *TestModel) {
-		fmt.Printf("Observer called: %s -> %s\n", old.ToString(), new.ToString())
+	observer := state.NewRuntimeObserver(func(new *NamedModel, old *NamedModel) {
+		fmt.Printf("Observer called: %s -> %s\n", old.Name, new.Name)
 	})
 	accessor.RegisterObserver(observer)
 
@@ -53,7 +56,7 @@ func main() {
 	fmt.Printf("Persisted model name: %s\n", model.Name)
 
 	// Update the model
-	err = accessor.Update(func(m *TestModel) error {
+	err = accessor.Update(func(m *NamedModel) error {
 		m.Name = "updated"
 		return nil
 	})
